@@ -7,6 +7,9 @@
 #include <string>
 
 // ==========================================================================================
+static HelperLib::Options CurrentOptions {};
+
+// ==========================================================================================
 // Hooks
 
 void MainGameManager_Update(MainGameManager_o* mainGameManager)
@@ -14,7 +17,7 @@ void MainGameManager_Update(MainGameManager_o* mainGameManager)
 	GameAssembly.MainGameManager_Update(mainGameManager);
 
 	// Say remaining life time
-	if (GameAssembly.Input_GetKeyDown(UnityEngine::KeyCode::F1))
+	if (CurrentOptions.EnableLifetimeMessage && GameAssembly.Input_GetKeyDown(UnityEngine::KeyCode::F1))
 	{
 		PartnerCtrl_o* partnerL = GameAssembly.MainGameManager_GetPartnerCtrl(0);
 		PartnerCtrl_o* partnerR = GameAssembly.MainGameManager_GetPartnerCtrl(1);
@@ -55,16 +58,21 @@ void MainGameManager_Update(MainGameManager_o* mainGameManager)
 // Can ExE always
 bool PartnerCtrl_IsPossibleMiracle(PartnerCtrl_o* partner, bool isLose)
 {
-	auto* playerData = GameAssembly.StorageData_get_PlayerData();
-	playerData->fields.m_isUseExe = false;
+	if (CurrentOptions.UnlimitedExE)
+	{
+		auto* playerData = GameAssembly.StorageData_get_PlayerData();
+		playerData->fields.m_isUseExe = false;
+	}
 
 	return GameAssembly.PartnerCtrl_IsPossibleMiracle(partner, isLose);
 }
 
 // ==========================================================================================
-void HelperLib::Initialize(void* gModule)
+void HelperLib::Initialize(void* gameAssemblyBaseAddress, const Options& options)
 {
-	GameAssembly.Initialize((size_t)gModule);
+	GameAssembly.Initialize(reinterpret_cast<size_t>(gameAssemblyBaseAddress));
+
+	CurrentOptions = options;
 
 	// Install hooks
 	distormx_hook(reinterpret_cast<void**>(&GameAssembly.MainGameManager_Update.ptr), &MainGameManager_Update);

@@ -13,3 +13,4 @@ Then you will be able to inject the .dll when the game is running.
 
 ## Libraries used:
 [distormx](https://github.com/gdabah/distormx)
+[inireader](https://github.com/X-rays5/inireader)
