@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DWNOHelper", "src\DWNOHelper.vcxproj", "{2BD35FBB-271D-42A3-96F7-26D02B39ACE1}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "distormx", "libraries\distormx\distormx.vcxproj", "{9F987D15-B2FD-4AA4-82A8-ED0286B763ED}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BD35FBB-271D-42A3-96F7-26D02B39ACE1}.Debug|x64.ActiveCfg = Debug|x64
+		{2BD35FBB-271D-42A3-96F7-26D02B39ACE1}.Debug|x64.Build.0 = Debug|x64
+		{2BD35FBB-271D-42A3-96F7-26D02B39ACE1}.Release|x64.ActiveCfg = Release|x64
+		{2BD35FBB-271D-42A3-96F7-26D02B39ACE1}.Release|x64.Build.0 = Release|x64
+		{9F987D15-B2FD-4AA4-82A8-ED0286B763ED}.Debug|x64.ActiveCfg = Debug|x64
+		{9F987D15-B2FD-4AA4-82A8-ED0286B763ED}.Debug|x64.Build.0 = Debug|x64
+		{9F987D15-B2FD-4AA4-82A8-ED0286B763ED}.Release|x64.ActiveCfg = Release|x64
+		{9F987D15-B2FD-4AA4-82A8-ED0286B763ED}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BED97ACF-8F03-4169-9F8C-29E0360B8F31}
+	EndGlobalSection
+EndGlobal
