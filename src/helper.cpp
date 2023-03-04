@@ -4,7 +4,7 @@
 #include <distormx/distormx.h>
 
 #include <cstddef>
-#include <string>
+#include <cstdio>
 
 // ==========================================================================================
 static HelperLib::Options CurrentOptions {};
@@ -32,20 +32,19 @@ void MainGameManager_Update(MainGameManager_o* mainGameManager)
 
 			for (int i = 0; i < 2; ++i)
 			{
-				float lifetime = partnerData[i]->fields.m_lifetime;
-
-				int minutes = static_cast<int>(fmodf(lifetime, 60.f));
-				int hours = static_cast<int>(fmodf(lifetime / 60.f, 24.f));
-				int days = static_cast<int>(floorf(lifetime / 1440.f));
+				int lifetime = static_cast<int>(partnerData[i]->fields.m_lifetime);
+				int minutes = lifetime % 60;
+				int hours = (lifetime / 60) % 24;
+				int days = lifetime / 1440;
 				
 				int len;
-				if (days > 0)
+				if (days > 1)
 				{
-					len = sprintf_s(buffer, "I'll die in %02d days and %02d:%02d", days, hours, minutes);
+					len = sprintf_s(buffer, "I'll die in %d days and %02d:%02d", days, hours, minutes);
 				}
 				else
 				{
-					len = sprintf_s(buffer, "I'll die in %02d:%02d", hours, minutes);
+					len = sprintf_s(buffer, (days == 1) ? "I'll die in 1 day and %02d:%02d" : "I'll die in %02d:%02d", hours, minutes);
 				}
 				
 				auto* msg = GameAssembly.String_CreateStringFromEncoding(buffer, len, GameAssembly.Encoding_get_UTF8());
@@ -63,7 +62,6 @@ bool PartnerCtrl_IsPossibleMiracle(PartnerCtrl_o* partner, bool isLose)
 		auto* playerData = GameAssembly.StorageData_get_PlayerData();
 		playerData->fields.m_isUseExe = false;
 	}
-
 	return GameAssembly.PartnerCtrl_IsPossibleMiracle(partner, isLose);
 }
 
@@ -82,8 +80,8 @@ void HelperLib::Initialize(void* gameAssemblyBaseAddress, const Options& options
 void HelperLib::Release()
 {
 	// Remove hooks
-	distormx_unhook(GameAssembly.MainGameManager_Update.ptr);
-	distormx_unhook(GameAssembly.PartnerCtrl_IsPossibleMiracle.ptr);
+	distormx_unhook(&GameAssembly.MainGameManager_Update.ptr);
+	distormx_unhook(&GameAssembly.PartnerCtrl_IsPossibleMiracle.ptr);
 
 	distormx_destroy();
 }

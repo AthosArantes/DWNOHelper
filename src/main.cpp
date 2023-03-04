@@ -2,7 +2,6 @@
 
 #include <inireader/inireader.hpp>
 #include <filesystem>
-#include <fstream>
 
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
@@ -11,8 +10,24 @@
 #include <windows.h>
 #include <tchar.h>
 
+#include <vector>
+
+// ==========================================================================================
 static bool Initialized = false;
 
+static std::filesystem::path GetModuleFilePath(HMODULE hModule)
+{
+	std::vector<TCHAR> buffer;
+	DWORD len = 0;
+	do
+	{
+		buffer.resize(buffer.capacity() + MAX_PATH);
+		len = GetModuleFileName(hModule, buffer.data(), buffer.capacity());
+	} while (len >= buffer.capacity());
+	return std::filesystem::path {buffer.data(), buffer.data() + len};
+}
+
+// ==========================================================================================
 BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	UNREFERENCED_PARAMETER(lpReserved);
@@ -21,20 +36,13 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 	{
 		case DLL_PROCESS_ATTACH:
 		{
-			TCHAR buffer[MAX_PATH];
-			DWORD len = GetModuleFileName(hModule, buffer, MAX_PATH);
-			if (len == 0)
-			{
-				return FALSE;
-			}
-
-			std::filesystem::path path {buffer, &buffer[0] + len};
-			path.replace_extension("ini");
-
 			// Read configuration file
-			HelperLib::Options options {};			
+			HelperLib::Options options {};
 			try
 			{
+				std::filesystem::path path {GetModuleFilePath(hModule)};
+				path.replace_extension(_T("ini"));
+
 				ini::Parser iniFile {};
 				iniFile.Parse(path);
 
@@ -42,14 +50,15 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				options.EnableLifetimeMessage = section["EnableLifetimeMessage"].as<bool>();
 				options.UnlimitedExE = section["UnlimitedExE"].as<bool>();
 			}
-			catch (std::runtime_error&)
+			catch (std::runtime_error& e)
 			{
-				return FALSE;
+				fprintf(stderr, "[ini::Parser][Error] %s. Default settings will be used.", e.what());
 			}
 
 			HMODULE gameAssemblyBaseAddress = GetModuleHandle(_T("GameAssembly.dll"));
 			if (gameAssemblyBaseAddress == NULL)
 			{
+				fprintf(stderr, "[Error] Failed to retrieve GameAssembly handle.");
 				return FALSE;
 			}
 

@@ -4,8 +4,8 @@ namespace HelperLib
 {
 	struct Options
 	{
-		bool EnableLifetimeMessage;
-		bool UnlimitedExE;
+		bool EnableLifetimeMessage {true};
+		bool UnlimitedExE {true};
 	};
 
 	void Initialize(void* gameAssemblyBaseAddress, const Options& options);
