@@ -1,4 +1,4 @@
-#include "game.h"
+#include "GameAssembly.h"
 
 GameAssemblyModule GameAssembly {};
 

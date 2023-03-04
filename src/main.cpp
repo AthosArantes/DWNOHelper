@@ -50,7 +50,7 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 			HMODULE gameAssemblyBaseAddress = GetModuleHandle(_T("GameAssembly.dll"));
 			if (gameAssemblyBaseAddress == NULL)
 			{
-				return false;
+				return FALSE;
 			}
 
 			HelperLib::Initialize(gameAssemblyBaseAddress, options);

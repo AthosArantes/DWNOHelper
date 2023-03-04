@@ -104,12 +104,12 @@
     <ClInclude Include="il2cpp_utils.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="helper.h" />
-    <ClInclude Include="game.h" />
+    <ClInclude Include="GameAssembly.h" />
     <ClInclude Include="KeyCode.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="helper.cpp" />
-    <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameAssembly.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,5 +1,5 @@
 #include "helper.h"
-#include "game.h"
+#include "GameAssembly.h"
 
 #include <distormx/distormx.h>
 
