@@ -1,8 +1,8 @@
 #include "helper.h"
 #include "GameAssembly.h"
+#include "Language.h"
 
 #include <distormx/distormx.h>
-
 #include <cstddef>
 #include <cstdio>
 
@@ -16,8 +16,10 @@ void MainGameManager_Update(MainGameManager_o* mainGameManager)
 {
 	GameAssembly.MainGameManager_Update(mainGameManager);
 
+	unsigned langCode = GameAssembly.Language_get_SystemLanguage();
+
 	// Say remaining life time
-	if (CurrentOptions.EnableLifetimeMessage && GameAssembly.Input_GetKeyDown(UnityEngine::KeyCode::F1))
+	if (CurrentOptions.LifetimeMessageKey && GameAssembly.Input_GetKeyDown(CurrentOptions.LifetimeMessageKey))
 	{
 		PartnerCtrl_o* partnerL = GameAssembly.MainGameManager_GetPartnerCtrl(0);
 		PartnerCtrl_o* partnerR = GameAssembly.MainGameManager_GetPartnerCtrl(1);
@@ -36,17 +38,18 @@ void MainGameManager_Update(MainGameManager_o* mainGameManager)
 				int minutes = lifetime % 60;
 				int hours = (lifetime / 60) % 24;
 				int days = lifetime / 1440;
-				
+
 				int len;
 				if (days > 1)
 				{
-					len = sprintf_s(buffer, "I'll die in %d days and %02d:%02d", days, hours, minutes);
+					len = sprintf_s(buffer, GetString(langCode, LanguageStringIndex::DigimonDieDays), days, hours, minutes);
 				}
 				else
 				{
-					len = sprintf_s(buffer, (days == 1) ? "I'll die in 1 day and %02d:%02d" : "I'll die in %02d:%02d", hours, minutes);
+					const char* format = GetString(langCode, (days == 1) ? LanguageStringIndex::DigimonDieDay : LanguageStringIndex::DigimonDieHours);
+					len = sprintf_s(buffer, format, hours, minutes);
 				}
-				
+
 				auto* msg = GameAssembly.String_CreateStringFromEncoding(buffer, len, GameAssembly.Encoding_get_UTF8());
 				GameAssembly.uFieldPanel_StartDigimonMessage(i + 1, msg, 5.0f);
 			}
@@ -66,10 +69,8 @@ bool PartnerCtrl_IsPossibleMiracle(PartnerCtrl_o* partner, bool isLose)
 }
 
 // ==========================================================================================
-void HelperLib::Initialize(void* gameAssemblyBaseAddress, const Options& options)
+void HelperLib::Initialize(const Options& options)
 {
-	GameAssembly.Initialize(reinterpret_cast<size_t>(gameAssemblyBaseAddress));
-
 	CurrentOptions = options;
 
 	// Install hooks

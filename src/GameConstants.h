@@ -335,3 +335,127 @@ namespace UnityEngine
 		};
 	};
 }
+
+namespace DWNO
+{
+	struct MessageWindowPos
+	{
+		enum Enum
+		{
+			Center = -1,
+			Partner00,
+			Partner01,
+			PartnerR = 0,
+			PartnerL,
+			RightUp
+		};
+	};
+
+	struct UnitID
+	{
+		enum Enum
+		{
+			Player,
+			PartnerIdBegin,
+			Partner00 = 1,
+			Partner01,
+			NpcIdBegin,
+			PartnerIdEnd = 2,
+			Npc00,
+			Npc01,
+			Npc02,
+			Npc03,
+			Npc04,
+			Npc05,
+			Npc06,
+			Npc07,
+			Npc08,
+			Npc09,
+			Npc10,
+			Npc11,
+			Npc12,
+			Npc13,
+			Npc14,
+			Npc15,
+			EnemyIdBegin,
+			NormalEnemyIdBegin = 19,
+			NpcIdEnd = 18,
+			Enemy00,
+			Enemy01,
+			Enemy02,
+			Enemy03,
+			Enemy04,
+			Enemy05,
+			Enemy06,
+			Enemy07,
+			Enemy08,
+			Enemy09,
+			Enemy10,
+			Enemy11,
+			Enemy12,
+			Enemy13,
+			Enemy14,
+			NpcEnemyIdBegin,
+			NormalEnemyIdEnd = 33,
+			Enemy15,
+			Enemy16,
+			Enemy17,
+			Enemy18,
+			Enemy19,
+			Max,
+			NpcEnemyIdEnd = 38,
+			EnemyIdEnd = 38,
+			Non = -1
+		};
+	};
+
+	struct SystemLanguage
+	{
+		enum Enum : unsigned
+		{
+			Afrikaans,
+			Arabic,
+			Basque,
+			Belarusian,
+			Bulgarian,
+			Catalan,
+			Chinese,
+			Czech,
+			Danish,
+			Dutch,
+			English,
+			Estonian,
+			Faroese,
+			Finnish,
+			French,
+			German,
+			Greek,
+			Hebrew,
+			Hungarian,
+			Icelandic,
+			Indonesian,
+			Italian,
+			Japanese,
+			Korean,
+			Latvian,
+			Lithuanian,
+			Norwegian,
+			Polish,
+			Portuguese,
+			Romanian,
+			Russian,
+			SerboCroatian,
+			Slovak,
+			Slovenian,
+			Spanish,
+			Swedish,
+			Thai,
+			Turkish,
+			Ukrainian,
+			Vietnamese,
+			ChineseSimplified,
+			ChineseTraditional,
+			Unknown
+		};
+	};
+}

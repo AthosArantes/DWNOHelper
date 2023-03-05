@@ -2,10 +2,10 @@
 
 GameAssemblyModule GameAssembly {};
 
-void GameAssemblyModule::Initialize(size_t moduleAddress)
+void GameAssemblyModule::Initialize(void* baseAddress)
 {
 #define ADD_MODULE_ADDRESS(v) \
-	v.ptr = reinterpret_cast<typename decltype(v)::value_type>(reinterpret_cast<size_t>(v.ptr) + moduleAddress)
+	v.ptr = reinterpret_cast<typename decltype(v)::value_type>((size_t)v.ptr + (size_t)baseAddress)
 
 	ADD_MODULE_ADDRESS(Encoding_get_UTF8);
 	ADD_MODULE_ADDRESS(String_CreateStringFromEncoding);
@@ -13,6 +13,8 @@ void GameAssemblyModule::Initialize(size_t moduleAddress)
 	ADD_MODULE_ADDRESS(Input_GetKey);
 	ADD_MODULE_ADDRESS(Input_GetKeyDown);
 	ADD_MODULE_ADDRESS(Input_GetKeyUp);
+
+	ADD_MODULE_ADDRESS(Language_get_SystemLanguage);
 
 	ADD_MODULE_ADDRESS(MainGameManager_get);
 	ADD_MODULE_ADDRESS(MainGameManager_GetPlayerCtrl);

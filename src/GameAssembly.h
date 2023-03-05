@@ -2,11 +2,11 @@
 
 #include <il2cppdump/il2cpp.h>
 #include "il2cpp_utils.h"
-#include "KeyCode.h"
+#include "GameConstants.h"
 
 struct GameAssemblyModule
 {
-	void Initialize(size_t moduleAddress);
+	void Initialize(void* baseAddress);
 
 	il2cpp::function<System_Text_Encoding_o*> Encoding_get_UTF8 {0xA7C2B0};
 	il2cpp::function<System_String_o*, const char* /*bytes*/, uint32_t /*size*/, System_Text_Encoding_o*> String_CreateStringFromEncoding {0xA7FED0};
@@ -14,6 +14,8 @@ struct GameAssemblyModule
 	il2cpp::function<bool, unsigned /*keyCode*/> Input_GetKey {0x10C4260};
 	il2cpp::function<bool, unsigned /*keyCode*/> Input_GetKeyDown {0x10C4220};
 	il2cpp::function<bool, unsigned /*keyCode*/> Input_GetKeyUp {0x10C42A0};
+
+	il2cpp::function<unsigned> Language_get_SystemLanguage {0x3CA830};
 
 	il2cpp::function<MainGameManager_o*> MainGameManager_get {0x26CD30};
 	il2cpp::function<PlayerCtrl_o*> MainGameManager_GetPlayerCtrl {0x25F0E0};
@@ -33,78 +35,3 @@ struct GameAssemblyModule
 };
 
 extern GameAssemblyModule GameAssembly;
-
-// ==========================================================================================
-namespace DWNO
-{
-	struct MessageWindowPos
-	{
-		enum Enum
-		{
-			Center = -1,
-			Partner00,
-			Partner01,
-			PartnerR = 0,
-			PartnerL,
-			RightUp
-		};
-	};
-
-	struct UnitID
-	{
-		enum Enum
-		{
-			Player,
-			PartnerIdBegin,
-			Partner00 = 1,
-			Partner01,
-			NpcIdBegin,
-			PartnerIdEnd = 2,
-			Npc00,
-			Npc01,
-			Npc02,
-			Npc03,
-			Npc04,
-			Npc05,
-			Npc06,
-			Npc07,
-			Npc08,
-			Npc09,
-			Npc10,
-			Npc11,
-			Npc12,
-			Npc13,
-			Npc14,
-			Npc15,
-			EnemyIdBegin,
-			NormalEnemyIdBegin = 19,
-			NpcIdEnd = 18,
-			Enemy00,
-			Enemy01,
-			Enemy02,
-			Enemy03,
-			Enemy04,
-			Enemy05,
-			Enemy06,
-			Enemy07,
-			Enemy08,
-			Enemy09,
-			Enemy10,
-			Enemy11,
-			Enemy12,
-			Enemy13,
-			Enemy14,
-			NpcEnemyIdBegin,
-			NormalEnemyIdEnd = 33,
-			Enemy15,
-			Enemy16,
-			Enemy17,
-			Enemy18,
-			Enemy19,
-			Max,
-			NpcEnemyIdEnd = 38,
-			EnemyIdEnd = 38,
-			Non = -1
-		};
-	};
-}

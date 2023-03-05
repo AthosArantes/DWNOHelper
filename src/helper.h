@@ -1,13 +1,15 @@
 #pragma once
 
+#include <cstdint>
+
 namespace HelperLib
 {
 	struct Options
 	{
-		bool EnableLifetimeMessage {true};
-		bool UnlimitedExE {true};
+		unsigned LifetimeMessageKey {282};
+		bool UnlimitedExE {false};
 	};
 
-	void Initialize(void* gameAssemblyBaseAddress, const Options& options);
+	void Initialize(const Options& options);
 	void Release();
 }

@@ -1,7 +1,9 @@
+#include "GameAssembly.h"
 #include "helper.h"
 
 #include <inireader/inireader.hpp>
 #include <filesystem>
+#include <vector>
 
 // Exclude rarely-used stuff from Windows headers
 #define WIN32_LEAN_AND_MEAN
@@ -10,11 +12,7 @@
 #include <windows.h>
 #include <tchar.h>
 
-#include <vector>
-
 // ==========================================================================================
-static bool Initialized = false;
-
 static std::filesystem::path GetModuleFilePath(HMODULE hModule)
 {
 	std::vector<TCHAR> buffer;
@@ -32,10 +30,20 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 {
 	UNREFERENCED_PARAMETER(lpReserved);
 
+	static bool Initialized = false;
+
 	switch (dwReason)
 	{
 		case DLL_PROCESS_ATTACH:
 		{
+			HMODULE gameAssemblyBaseAddress = GetModuleHandle(_T("GameAssembly.dll"));
+			if (gameAssemblyBaseAddress == NULL)
+			{
+				fprintf(stderr, "[Error] Failed to retrieve GameAssembly handle.");
+				return FALSE;
+			}
+			GameAssembly.Initialize(gameAssemblyBaseAddress);
+
 			// Read configuration file
 			HelperLib::Options options {};
 			try
@@ -47,23 +55,16 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				iniFile.Parse(path);
 
 				ini::Parser::IniSection& section = iniFile.GetSection("Main");
-				options.EnableLifetimeMessage = section["EnableLifetimeMessage"].as<bool>();
+				options.LifetimeMessageKey = section["LifetimeMessageKey"].as<unsigned>();
 				options.UnlimitedExE = section["UnlimitedExE"].as<bool>();
 			}
 			catch (std::runtime_error& e)
 			{
 				fprintf(stderr, "[ini::Parser][Error] %s. Default settings will be used.", e.what());
 			}
-
-			HMODULE gameAssemblyBaseAddress = GetModuleHandle(_T("GameAssembly.dll"));
-			if (gameAssemblyBaseAddress == NULL)
-			{
-				fprintf(stderr, "[Error] Failed to retrieve GameAssembly handle.");
-				return FALSE;
-			}
-
-			HelperLib::Initialize(gameAssemblyBaseAddress, options);
+			HelperLib::Initialize(options);
 			Initialized = true;
+
 			return TRUE;
 		}
 		case DLL_THREAD_ATTACH:

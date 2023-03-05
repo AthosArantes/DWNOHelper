@@ -51,8 +51,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,0
- PRODUCTVERSION 1,0,1,0
+ FILEVERSION 1,1,0,0
+ PRODUCTVERSION 1,1,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -68,10 +68,10 @@ BEGIN
         BLOCK "040904b0"
         BEGIN
             VALUE "FileDescription", "Digimon World Next Order Helper"
-            VALUE "FileVersion", "1.0.1.0"
+            VALUE "FileVersion", "1.1.0.0"
             VALUE "InternalName", "DWNOHelper.dll"
             VALUE "OriginalFilename", "DWNOHelper.dll"
-            VALUE "ProductVersion", "1.0.1.0"
+            VALUE "ProductVersion", "1.1.0.0"
         END
     END
     BLOCK "VarFileInfo"
