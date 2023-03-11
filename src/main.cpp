@@ -54,9 +54,14 @@ BOOL APIENTRY DllMain(HMODULE hModule, DWORD dwReason, LPVOID lpReserved)
 				ini::Parser iniFile {};
 				iniFile.Parse(path);
 
-				ini::Parser::IniSection& section = iniFile.GetSection("Main");
-				options.LifetimeMessageKey = section["LifetimeMessageKey"].as<unsigned>();
-				options.UnlimitedExE = section["UnlimitedExE"].as<bool>();
+				ini::Parser::IniSection& mainSection = iniFile.GetSection("Main");
+				options.LifetimeMessageKey = mainSection["LifetimeMessageKey"].as<unsigned>();
+
+				ini::Parser::IniSection& cheatSection = iniFile.GetSection("Cheat");
+				options.UnlimitedExE = cheatSection["UnlimitedExE"].as<bool>();
+				options.DisableAgeing = cheatSection["DisableAgeing"].as<bool>();
+				options.ToggleAgeingKey = cheatSection["ToggleAgeingKey"].as<unsigned>();
+				options.ManageConstructionMaterials = cheatSection["ManageConstructionMaterials"].as<bool>();
 			}
 			catch (std::runtime_error& e)
 			{

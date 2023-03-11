@@ -22,11 +22,16 @@ void GameAssemblyModule::Initialize(void* baseAddress)
 	ADD_MODULE_ADDRESS(MainGameManager_Update);
 	ADD_MODULE_ADDRESS(MainGameManager_get_MainMessageManager);
 
-	ADD_MODULE_ADDRESS(StorageData_get_PlayerData);
+	ADD_MODULE_ADDRESS(StorageData);
 
 	ADD_MODULE_ADDRESS(CommonMessageWindowManager_Get00);
 	ADD_MODULE_ADDRESS(CommonMessageWindowManager_Get01);
 	ADD_MODULE_ADDRESS(uCommonMessageWindow_SetMessage);
+	ADD_MODULE_ADDRESS(uConstructionPanelMaterial_Update);
+	ADD_MODULE_ADDRESS(uConstructionPanelMaterial_MaterialNum_SetNum);
+	ADD_MODULE_ADDRESS(uItemBase_GetSelectItemData);
+	ADD_MODULE_ADDRESS(uItemBase_UpdateItemListObjectAll);
+	ADD_MODULE_ADDRESS(uStoragePanel_Update);
 
 	ADD_MODULE_ADDRESS(uFieldPanel_StartDigimonMessage);
 

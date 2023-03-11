@@ -458,4 +458,26 @@ namespace DWNO
 			Unknown
 		};
 	};
+
+	struct ConstructionPanelState
+	{
+		enum Enum
+		{
+			None,
+			Main,
+			Wait
+		};
+	};
+
+	struct StorageType
+	{
+		enum Enum
+		{
+			Player, // Player inventory
+			Shop, // Town warehouse
+			Material,
+			KeyItem,
+			Max
+		};
+	};
 }

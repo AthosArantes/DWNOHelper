@@ -6,6 +6,23 @@
 
 namespace il2cpp
 {
+	template <typename Ty>
+	struct object
+	{
+		using value_type = Ty;
+
+		object() :
+			ptr(nullptr)
+		{
+		}
+		object(size_t rva) :
+			ptr(reinterpret_cast<value_type>(rva))
+		{
+		}
+
+		value_type ptr;
+	};
+
 	template <typename ReturnTy, typename... Args>
 	struct function
 	{

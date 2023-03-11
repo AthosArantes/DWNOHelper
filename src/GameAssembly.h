@@ -23,11 +23,16 @@ struct GameAssemblyModule
 	il2cpp::function<void, MainGameManager_o* /*this*/> MainGameManager_Update {0x267E40};
 	il2cpp::function<CommonMessageWindowManager_o*, MainGameManager_o* /*this*/> MainGameManager_get_MainMessageManager {0x26CC80};
 
-	il2cpp::function<PlayerData_o*> StorageData_get_PlayerData {0x2B3CA0};
+	il2cpp::object<StorageData_c**> StorageData {0x1A4E750};
 
 	il2cpp::function<uCommonMessageWindow_o*, CommonMessageWindowManager_o* /*this*/> CommonMessageWindowManager_Get00 {0x4E34C0};
 	il2cpp::function<uCommonMessageWindow_o*, CommonMessageWindowManager_o* /*this*/> CommonMessageWindowManager_Get01 {0x4E34D0};
 	il2cpp::function<void, uCommonMessageWindow_o* /*this*/> uCommonMessageWindow_SetMessage {0x540AE0};
+	il2cpp::function<void, uConstructionPanelMaterial_o* /*this*/> uConstructionPanelMaterial_Update {0x548AC0};
+	il2cpp::function<void, uConstructionPanelMaterial_MaterialNum_o* /*this*/, int /*num*/> uConstructionPanelMaterial_MaterialNum_SetNum {0x2EFF00};
+	il2cpp::function<ItemData_o*, uItemBase_o* /*this*/> uItemBase_GetSelectItemData {0x469160};
+	il2cpp::function<bool, uItemBase_o* /*this*/, unsigned /*item_no*/> uItemBase_UpdateItemListObjectAll {0x46E750};
+	il2cpp::function<void, uStoragePanel_o* /*this*/> uStoragePanel_Update {0x620E60};
 
 	il2cpp::function<void, int32_t /*unitID*/, System_String_o* /*text*/, float /*timeSeconds*/> uFieldPanel_StartDigimonMessage {0x5D4C50};
 
